@@ -18,6 +18,14 @@ module Bengt
       end
     end
 
+    def self.from_hash(hash)
+      filter = self.new
+      hash.each do |key, value|
+        filter.public_send(key, value)
+      end
+      filter
+    end
+
     def initialize
       @matchers = []
       @field_matchers = {}

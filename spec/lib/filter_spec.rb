@@ -5,6 +5,26 @@ require 'filter'
 describe Bengt::Filter do
   subject{described_class.new}
 
+  describe "Initializing from a hash" do
+    subject{described_class.from_hash(filter)}
+    Given(:data){JSON.parse(File.read('spec/fixtures/imgur_gallery.json'))}
+
+    context "with a matching filter" do
+      Given(:filter){{is_self: false, title: 'journey'}}
+      Then{expect(subject.match?(data)).to be_truthy}
+    end
+
+    context "with a filter that doesn't match" do
+      Given(:filter){{is_self: false, title: 'journey2'}}
+      Then{expect(subject.match?(data)).to be_falsy}
+    end
+
+    context "with a filter that matches the title but not is_self" do
+      Given(:filter){{is_self: true, title: 'journey'}}
+      Then{expect(subject.match?(data)).to be_falsy}
+    end
+  end
+
   context "an imgur gallery" do
     Given(:data){JSON.parse(File.read('spec/fixtures/imgur_gallery.json'))}
 
