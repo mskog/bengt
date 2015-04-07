@@ -1,6 +1,7 @@
 require 'matchers/boolean_matcher'
 require 'matchers/regexp_matcher'
 require 'matchers/string_matcher'
+require 'matchers/image_matcher'
 
 module Bengt
   class Filter
@@ -9,25 +10,42 @@ module Bengt
     AVAILABLE_FILTERS.each do |available_filter|
       define_method available_filter do |something|
         if something.is_a?(Regexp)
-          @matchers[available_filter] = Matchers::RegexpMatcher.new(something)
+          @field_matchers[available_filter] = Matchers::RegexpMatcher.new(something)
         elsif something.is_a?(String)
-          @matchers[available_filter] = Matchers::StringMatcher.new(something)
+          @field_matchers[available_filter] = Matchers::StringMatcher.new(something)
         end
         self
       end
     end
 
     def initialize
-      @matchers = {}
+      @matchers = []
+      @field_matchers = {}
+    end
+
+    def is_image(boolean)
+      @matchers << Matchers::ImageMatcher.new(boolean)
     end
 
     def is_self(boolean)
-      @matchers[:is_self] = Matchers::BooleanMatcher.new(boolean)
+      @field_matchers[:is_self] = Matchers::BooleanMatcher.new(boolean)
     end
 
     def match?(data)
-      @matchers.all? do |key, something|
+      match_fields?(data) && match_other?(data)
+    end
+
+    private
+
+    def match_fields?(data)
+      @field_matchers.all? do |key, something|
         something.match?(data.fetch(key.to_s))
+      end
+    end
+
+    def match_other?(data)
+      @matchers.all? do |matcher|
+        matcher.match?(data)
       end
     end
   end

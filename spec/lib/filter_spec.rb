@@ -89,5 +89,38 @@ describe Bengt::Filter do
         end
       end
     end
+
+    context "Filtering on is_image" do
+      When(:result){subject.match?(data)}
+
+      context "with an image post" do
+        Given(:data){JSON.parse(File.read('spec/fixtures/imagepost.json'))}
+
+        context "filtering on is_image true" do
+          Given{subject.is_image(true)}
+          Then{expect(result).to be_truthy}
+        end
+
+        context "filtering on is_image false" do
+          Given{subject.is_image(false)}
+          Then{expect(result).to be_falsy}
+        end
+
+      end
+
+      context "with a non image post" do
+        Given(:data){JSON.parse(File.read('spec/fixtures/selfpost.json'))}
+
+        context "filtering on is_image true" do
+          Given{subject.is_image(true)}
+          Then{expect(result).to be_falsy}
+        end
+
+        context "filtering on is_image false" do
+          Given{subject.is_image(false)}
+          Then{expect(result).to be_truthy}
+        end
+      end
+    end
   end
 end
