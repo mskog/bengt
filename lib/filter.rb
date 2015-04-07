@@ -1,7 +1,7 @@
-require 'matchers/boolean_matcher'
-require 'matchers/regexp_matcher'
-require 'matchers/string_matcher'
-require 'matchers/image_matcher'
+require_relative 'matchers/boolean_matcher'
+require_relative 'matchers/regexp_matcher'
+require_relative 'matchers/string_matcher'
+require_relative 'matchers/image_matcher'
 
 module Bengt
   class Filter
@@ -25,10 +25,12 @@ module Bengt
 
     def is_image(boolean)
       @matchers << Matchers::ImageMatcher.new(boolean)
+      self
     end
 
     def is_self(boolean)
       @field_matchers[:is_self] = Matchers::BooleanMatcher.new(boolean)
+      self
     end
 
     def match?(data)

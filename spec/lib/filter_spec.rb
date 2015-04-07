@@ -12,6 +12,10 @@ describe Bengt::Filter do
       Given{subject.title(title)}
       When(:result){subject.match?(data)}
 
+      describe "it returns self" do
+        Then{expect(subject.title('foobar')).to eq subject}
+      end
+
       context "with a matching regexp" do
         Given(:title){/journey/i}
         Then{expect(result).to be_truthy}
@@ -61,6 +65,10 @@ describe Bengt::Filter do
     context "Filtering on is_self" do
       When(:result){subject.match?(data)}
 
+      describe "it returns self" do
+        Then{expect(subject.is_self(false)).to eq subject}
+      end
+
       context "with a self post" do
         Given(:data){JSON.parse(File.read('spec/fixtures/selfpost.json'))}
 
@@ -92,6 +100,10 @@ describe Bengt::Filter do
 
     context "Filtering on is_image" do
       When(:result){subject.match?(data)}
+
+      describe "it returns self" do
+        Then{expect(subject.is_image(false)).to eq subject}
+      end
 
       context "with an image post" do
         Given(:data){JSON.parse(File.read('spec/fixtures/imagepost.json'))}
