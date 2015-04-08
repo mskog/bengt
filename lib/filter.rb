@@ -31,6 +31,11 @@ module Bengt
       @field_matchers = {}
     end
 
+    def over_18(boolean)
+      @field_matchers[:over_18] = Matchers::BooleanMatcher.new(boolean)
+      self
+    end
+
     def is_image(boolean)
       @matchers << Matchers::ImageMatcher.new(boolean)
       self

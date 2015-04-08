@@ -154,5 +154,42 @@ describe Bengt::Filter do
         end
       end
     end
+
+    context "Filtering on over_18" do
+      When(:result){subject.match?(data)}
+
+      describe "it returns self" do
+        Then{expect(subject.over_18(false)).to eq subject}
+      end
+
+      context "with an adult post" do
+        Given(:data){JSON.parse(File.read('spec/fixtures/adultpost.json'))}
+
+        context "filtering on is_image true" do
+          Given{subject.over_18(true)}
+          Then{expect(result).to be_truthy}
+        end
+
+        context "filtering on over_18 false" do
+          Given{subject.over_18(false)}
+          Then{expect(result).to be_falsy}
+        end
+      end
+
+      context "with a non adult post" do
+        Given(:data){JSON.parse(File.read('spec/fixtures/selfpost.json'))}
+
+        context "filtering on over_18 true" do
+          Given{subject.over_18(true)}
+          Then{expect(result).to be_falsy}
+        end
+
+        context "filtering on over_18 false" do
+          Given{subject.over_18(false)}
+          Then{expect(result).to be_truthy}
+        end
+      end
+    end
+
   end
 end
