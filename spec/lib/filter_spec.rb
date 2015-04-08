@@ -153,6 +153,20 @@ describe Bengt::Filter do
           Then{expect(result).to be_truthy}
         end
       end
+
+      context "with a non-image link from imgur" do
+        Given(:data){JSON.parse(File.read('spec/fixtures/imgur_gallery.json'))}
+
+        context "filtering on is_image true" do
+          Given{subject.is_image(true)}
+          Then{expect(result).to be_truthy}
+        end
+
+        context "filtering on is_image false" do
+          Given{subject.is_image(false)}
+          Then{expect(result).to be_falsy}
+        end
+      end
     end
 
     context "Filtering on over_18" do
