@@ -31,7 +31,7 @@ module Bengt
       @field_matchers = {}
     end
 
-    def over_18(boolean)
+    def is_adult(boolean)
       @field_matchers[:over_18] = Matchers::BooleanMatcher.new(boolean)
       self
     end
