@@ -1,20 +1,12 @@
 require 'slack-notifier'
-require 'virtus'
 
 module Bengt
   module ActionAdapters
     class Slack
+      include Configuration
+
       def initialize(configuration = {})
         configure(configuration)
-      end
-
-      def configuration
-        @configuration ||= Configuration.new
-      end
-
-      def configure(data = {}, &block)
-        configuration.attributes = data
-        yield configuration if block_given?
       end
 
       def perform(payload)

@@ -1,3 +1,4 @@
+require 'bengt'
 require 'rspec-given'
 require 'pry-byebug'
 require 'webmock/rspec'

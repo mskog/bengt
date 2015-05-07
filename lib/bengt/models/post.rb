@@ -1,3 +1,4 @@
+require 'virtus'
 require 'json'
 
 module Bengt

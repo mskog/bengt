@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'json'
-require 'filter'
+require 'bengt/filter'
 
 describe Bengt::Filter do
   subject{described_class.new}

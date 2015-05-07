@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'action_adapters/slack'
+require 'bengt/action_adapters/slack'
 
 describe Bengt::ActionAdapters::Slack do
   subject{described_class.new}

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'models/post'
+require 'bengt/models/post'
 
 describe Bengt::Models::Post do
   subject{described_class.new()}
