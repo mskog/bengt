@@ -16,10 +16,10 @@ module Bengt
       class Configuration
         include Virtus.model
 
-        attribute :url
+        attribute :url, String, default: ENV['SLACK_URL']
 
-        attribute :username
-        attribute :channel
+        attribute :username, String, default: ENV['SLACK_USERNAME']
+        attribute :channel, String, default: ENV['SLACK_CHANNEL']
 
         def options
           [:channel, :username].each_with_object({}) do |attribute, object|

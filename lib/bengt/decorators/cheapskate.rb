@@ -25,7 +25,7 @@ module Bengt
       class Configuration
         include Virtus.model
 
-        attribute :url
+        attribute :url, String, default: ENV['CHEAPSKATE_URL']
       end
 
       private
