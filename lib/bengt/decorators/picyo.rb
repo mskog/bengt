@@ -44,14 +44,14 @@ module Bengt
       end
 
       def fetch_data
-        response = Faraday.get(images_url) do |faraday|
-          faraday.params['url'] = __getobj__.image_url
+        response = Faraday.post(images_url) do |faraday|
+          faraday.body = {url: __getobj__.image_url}
         end
         JSON.parse(response.body)
       end
 
       def images_url
-        "#{configuration.url}/images"
+        "#{configuration.url}/api/v1/images"
       end
 
       class Configuration

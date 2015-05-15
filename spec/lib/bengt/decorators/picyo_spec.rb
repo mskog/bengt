@@ -10,7 +10,7 @@ describe Bengt::Decorators::Picyo do
   Given(:post){OpenStruct.new(data)}
 
   Given(:picyo_url){'http://www.example.com'}
-  Given(:picyo_image_url){"#{picyo_url}/images"}
+  Given(:picyo_image_url){"#{picyo_url}/api/v1/images"}
   Given(:configuration_data){{url: picyo_url}}
 
   Given(:picyo_response) do
@@ -23,7 +23,7 @@ describe Bengt::Decorators::Picyo do
     }
   end
 
-  Given{stub_request(:get, picyo_image_url).with(query: {url: image_url}).to_return(body: JSON.generate(picyo_response))}
+  Given{stub_request(:post, picyo_image_url).with(body: {url: image_url}).to_return(body: JSON.generate(picyo_response))}
 
   describe "Decorated Methods" do
     Then{expect(subject.image_url).to eq picyo_response[:image_url]}
