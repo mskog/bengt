@@ -22,12 +22,6 @@ module Bengt
         super.merge(body: body, image_url: image_url)
       end
 
-      class Configuration
-        include Virtus.model
-
-        attribute :url, String, default: ENV['CHEAPSKATE_URL']
-      end
-
       private
 
       def details_url
@@ -43,6 +37,12 @@ module Bengt
           faraday.params['url'] = url
         end
         JSON.parse(response.body)
+      end
+
+      class Configuration
+        include Virtus.model
+
+        attribute :url, String, default: ENV['CHEAPSKATE_URL']
       end
     end
   end
