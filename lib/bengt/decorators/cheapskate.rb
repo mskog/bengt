@@ -2,6 +2,8 @@ require 'delegate'
 
 module Bengt
   module Decorators
+
+    # TODO It is unnecessary to perform a request to Cheapskate to decorate this if the url for the post is already an image
     class Cheapskate < SimpleDelegator
       include Configuration
 
@@ -11,11 +13,11 @@ module Bengt
       end
 
       def body
-        cheapskate_data['body']
+        data['body']
       end
 
       def image_url
-        cheapskate_data['top_image']
+        data['top_image']
       end
 
       def to_h
@@ -28,8 +30,12 @@ module Bengt
         "#{configuration.url}/details"
       end
 
-      def cheapskate_data
-        @cheapskate_data ||= fetch_data
+      def data
+        if self.image_post?
+          @data ||= {"body" => '', "top_image" => __getobj__.image_url}
+        else
+          @data ||= fetch_data
+        end
       end
 
       def fetch_data
