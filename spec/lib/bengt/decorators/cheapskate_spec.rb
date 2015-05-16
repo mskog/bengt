@@ -15,7 +15,6 @@ describe Bengt::Decorators::Cheapskate do
   Given(:details_url){"#{cheapskate_url}/details?url=#{post.url}"}
   Given(:configuration_data){{url: cheapskate_url}}
 
-
   context "with a post that is not an image" do
     Given(:data){JSON.parse(File.read('spec/fixtures/imgur_gallery.json'))}
     Given{stub_request(:get, details_url).to_return(body: JSON.generate(cheapskate_data))}
