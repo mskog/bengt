@@ -44,20 +44,22 @@ module Bengt
       end
 
       def fetch_data
-        response = Faraday.post(images_url) do |faraday|
-          faraday.body = {url: __getobj__.image_url}
+        connection = Faraday.new(configuration.url) do |conn|
+          conn.request  :url_encoded
+          conn.basic_auth(configuration.username, configuration.password)
+          conn.adapter :net_http
         end
-        JSON.parse(response.body)
-      end
 
-      def images_url
-        "#{configuration.url}/api/v1/images"
+        response = connection.post("/api/v1/images", {url: __getobj__.image_url})
+        JSON.parse(response.body)['image']
       end
 
       class Configuration
         include Virtus.model
 
         attribute :url, String, default: ENV['PICYO_URL']
+        attribute :username, String, default: ENV['PICYO_USERNAME']
+        attribute :password, String, default: ENV['PICYO_PASSWORD']
       end
     end
   end
