@@ -13,7 +13,7 @@ unless ENV['DRB']
 end
 
 
-WebMock.disable_net_connect!
+WebMock.disable_net_connect! allow: [/codeclimate\.com/]
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
