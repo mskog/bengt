@@ -59,7 +59,7 @@ describe Bengt::ActionAdapters::Slack do
       Given!(:stub){stub_request(:post, url).with(:body => {"payload"=>"{\"channel\":\"#default\",\"username\":\"foobar\",\"text\":\"#{payload}\"}"})}
       Given(:payload){"/r/pics/comments/31mbii/sunrise_in_cincinnati/"}
 
-      subject{described_class.new(url: url, username: username, channel: channel, post_method: :permalink)}
+      subject{described_class.new(url: url, username: username, channel: channel, payload_method: :permalink)}
 
       When{subject.perform(post)}
 
