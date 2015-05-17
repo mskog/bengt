@@ -13,10 +13,19 @@ module Bengt
 
       def initialize(object, configuration = {})
         configure(configuration)
+        define_singleton_method self.configuration.thumbor_method do
+          thumbor_url
+        end
         super object
       end
 
-      def image_url
+      def to_h
+        super.merge(configuration.thumbor_method => thumbor_url)
+      end
+
+      private
+
+      def thumbor_url
         crypto = ::Thumbor::CryptoURL.new nil
         thumbor_url = crypto.generate image: __getobj__.image_url, **configuration.thumbor_options
         configuration.url + thumbor_url
@@ -26,6 +35,7 @@ module Bengt
         include Virtus.model
 
         attribute :url, String, default: ENV['THUMBOR_URL']
+        attribute :thumbor_method, String, default: :image_url
         attribute :thumbor_options, Hash
       end
     end
