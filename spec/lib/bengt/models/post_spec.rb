@@ -3,10 +3,9 @@ require 'bengt/models/post'
 
 describe Bengt::Models::Post do
   subject{described_class.new(data)}
+  Given(:data){JSON.parse(File.read('spec/fixtures/imagepost.json'))}
 
   describe "Attributes" do
-    Given(:data){JSON.parse(File.read('spec/fixtures/imagepost.json'))}
-
     Then{expect(subject.author).to eq 'BeesKnees33'}
     And{expect(subject.created_utc).to eq 1428321961.0}
     And{expect(subject.domain).to eq 'imgur.com'}
@@ -21,6 +20,11 @@ describe Bengt::Models::Post do
     And{expect(subject.thumbnail).to eq 'http://b.thumbs.redditmedia.com/bjcX7-Q1P36IufrxGB0qYDxuYrCOoHzPVlLXgGd6Xmg.jpg'}
     And{expect(subject.title).to eq 'Sunrise in Cincinnati!'}
     And{expect(subject.url).to eq 'http://imgur.com/krDq9fs.jpg'}
+  end
+
+  describe "#to_json" do
+    When(:result){subject.to_json}
+    Then{expect(JSON.parse(result)).to include data}
   end
 
   describe "Image posts" do

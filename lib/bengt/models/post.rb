@@ -6,7 +6,6 @@ module Bengt
     class Post
       IMAGE_EXTENSIONS = %w(jpg png jpeg gif)
 
-
       include Virtus.model
 
       attribute :id
@@ -33,6 +32,10 @@ module Bengt
 
       def image_url
         image_post? ? url : ""
+      end
+
+      def to_json
+        JSON.generate(self.to_h)
       end
     end
   end
