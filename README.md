@@ -1,31 +1,3 @@
-# Bengt2
-
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'bengt2'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install bengt2
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/bengt2/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+[![Circle CI](https://circleci.com/gh/mskog/bengt.svg?style=svg)](https://circleci.com/gh/mskog/bengt)
+[![Code Climate](https://codeclimate.com/github/mskog/bengt/badges/gpa.svg)](https://codeclimate.com/github/mskog/bengt)
+[![Test Coverage](https://codeclimate.com/github/mskog/bengt/badges/coverage.svg)](https://codeclimate.com/github/mskog/bengt/coverage)
