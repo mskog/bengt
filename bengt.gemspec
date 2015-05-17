@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-given', '~> 3.7'
   spec.add_development_dependency 'webmock', '~> 1.21'
   spec.add_development_dependency 'pry-byebug', '~> 3.1'
+  spec.add_development_dependency 'codeclimate-test-reporter'
 end
