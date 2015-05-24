@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'bengt/action_adapters/pusher'
 
-describe Bengt::ActionAdapters::Pusher do
+describe Bengt::Actions::Pusher do
   Given(:configuration){{
     app_id: 'app_id',
     key: 'key',

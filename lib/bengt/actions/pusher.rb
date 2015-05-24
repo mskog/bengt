@@ -1,7 +1,7 @@
 require 'pusher'
 
 module Bengt
-  module ActionAdapters
+  module Actions
     class Pusher
       include Configuration
 

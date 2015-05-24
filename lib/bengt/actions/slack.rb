@@ -1,7 +1,7 @@
 require 'slack-notifier'
 
 module Bengt
-  module ActionAdapters
+  module Actions
     class Slack
       include Configuration
 
