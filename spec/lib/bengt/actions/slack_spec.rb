@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'bengt/action_adapters/slack'
 
-describe Bengt::ActionAdapters::Slack do
+describe Bengt::Actions::Slack do
   subject{described_class.new}
 
   Given(:data){JSON.parse(File.read('spec/fixtures/imagepost.json'))}
