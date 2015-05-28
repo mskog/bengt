@@ -17,7 +17,7 @@ module Bengt
           conn.adapter :net_http
         end
 
-        response = connection.post("/api/v1/albums/#{configuration.album}/images", {url: payload.image_url})
+        response = connection.post("/api/v1/albums/#{configuration.album}/images", {url: payload.image_url, async: '1'})
       end
 
       private
