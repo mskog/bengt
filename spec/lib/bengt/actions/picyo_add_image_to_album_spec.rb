@@ -2,12 +2,11 @@ require 'spec_helper'
 
 describe Bengt::Actions::PicyoAddImageToAlbum do
   Given(:picyo_url){'http://www.example.com'}
-  Given(:configuration){{url: picyo_url, username: 'username', password: 'password', album: 'foobar'}}
+  Given(:configuration){{url: picyo_url, email: email, token: token, album: 'foobar'}}
 
-  Given(:username){'username'}
-  Given(:password){'password'}
+  Given(:email){'test@example.com'}
+  Given(:token){'token'}
   Given(:picyo_url){"http://www.example.com"}
-  Given(:authenticated_url){"http://#{username}:#{password}@www.example.com"}
 
   When{subject.perform(post)}
 
@@ -16,8 +15,15 @@ describe Bengt::Actions::PicyoAddImageToAlbum do
     Given(:post){OpenStruct.new(image_url: image_url)}
     subject{described_class.new(configuration)}
 
+    Given(:expected_headers) do
+      {
+        'X-User-Email' => email,
+        'X-User-Token' => token,
+      }
+    end
+
     Given!(:stub) do
-      stub_request(:post, "#{authenticated_url}/api/v1/albums/#{configuration[:album]}/images").with(body: {url: image_url, async: '1'})
+      stub_request(:post, "#{picyo_url}/api/v1/albums/#{configuration[:album]}/images").with(headers: (expected_headers), body: {url: image_url, async: '1'})
     end
 
     Then{expect(stub).to have_been_requested}
@@ -29,8 +35,8 @@ describe Bengt::Actions::PicyoAddImageToAlbum do
     subject{described_class.new(configuration)}
 
     Given(:image_types){['gif', 'jpg']}
-    Given(:configuration){{url: picyo_url, username: 'username', password: 'password', album: 'foobar', image_types: image_types}}
-    Given!(:stub){stub_request(:post, /#{authenticated_url}/)}
+    Given(:configuration){{url: picyo_url, email: email, token: token, album: 'foobar', image_types: image_types}}
+    Given!(:stub){stub_request(:post, /#{picyo_url}/)}
     Then{expect(stub).to_not have_been_requested}
   end
 end
